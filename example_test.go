@@ -2,12 +2,12 @@ package rotatelogs_test
 
 import (
 	"fmt"
+	rotatelogs "github.com/patch-mirrors/file-rotatelogs"
 	"io/ioutil"
 	"os"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 )
 
-func ExampleForceNewFile () {
+func ExampleForceNewFile() {
 	logDir, err := ioutil.TempDir("", "rotatelogs_test")
 	if err != nil {
 		fmt.Println("could not create log directory ", err)

@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/jonboulle/clockwork"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
+	rotatelogs "github.com/patch-mirrors/file-rotatelogs"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
@@ -396,13 +396,13 @@ func TestGHIssue23(t *testing.T) {
 			Clock    rotatelogs.Clock
 		}{
 			{
-				Expected: filepath.Join(dir, strings.ToLower(strings.Replace(locName, "/", "_", -1)) + ".201806010000.log"),
+				Expected: filepath.Join(dir, strings.ToLower(strings.Replace(locName, "/", "_", -1))+".201806010000.log"),
 				Clock: ClockFunc(func() time.Time {
 					return time.Date(2018, 6, 1, 3, 18, 0, 0, loc)
 				}),
 			},
 			{
-				Expected: filepath.Join(dir, strings.ToLower(strings.Replace(locName, "/", "_", -1)) + ".201712310000.log"),
+				Expected: filepath.Join(dir, strings.ToLower(strings.Replace(locName, "/", "_", -1))+".201712310000.log"),
 				Clock: ClockFunc(func() time.Time {
 					return time.Date(2017, 12, 31, 23, 52, 0, 0, loc)
 				}),
@@ -487,7 +487,7 @@ func TestForceNewFile(t *testing.T) {
 			}
 		}
 
-		})
+	})
 
 	t.Run("Force a new file with Rotate", func(t *testing.T) {
 
@@ -506,7 +506,7 @@ func TestForceNewFile(t *testing.T) {
 				return
 			}
 			rl.Write([]byte("Hello, World"))
-	  		rl.Write([]byte(fmt.Sprintf("%d", i)))
+			rl.Write([]byte(fmt.Sprintf("%d", i)))
 			assert.FileExists(t, rl.CurrentFileName(), "file does not exist %s", rl.CurrentFileName())
 			content, err := ioutil.ReadFile(rl.CurrentFileName())
 			if !assert.NoError(t, err, "ioutil.ReadFile %s should succeed", rl.CurrentFileName()) {
@@ -528,4 +528,3 @@ func TestForceNewFile(t *testing.T) {
 		}
 	})
 }
-
