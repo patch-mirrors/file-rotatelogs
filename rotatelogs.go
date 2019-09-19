@@ -263,7 +263,8 @@ func (rl *RotateLogs) Rotate() error {
 }
 
 func (rl *RotateLogs) rotate_nolock(filename string) error {
-	lockfn := filename + `_lock`
+	// PATCH: lock file in same director causes some problem
+	lockfn := "/tmp/" + filepath.Base(filename) + `_lock`
 	fh, err := os.OpenFile(lockfn, os.O_CREATE|os.O_EXCL, 0644)
 	if err != nil {
 		// Can't lock, just return
